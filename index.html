@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>آموزشگاه کامپیوتر آرمان</title>
+    <title>آموزشگاه کامپیوتر آرمان | دوره های تخصصی برنامه نویسی</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -36,7 +36,7 @@
             padding: 20px 0;
             position: sticky;
             top: 0;
-            z-index: 100;
+            z-index: 1000;
             backdrop-filter: blur(10px);
             border-bottom: 1px solid var(--gold);
         }
@@ -168,6 +168,7 @@
             text-align: center;
             transition: transform 0.3s, box-shadow 0.3s;
             border: 1px solid rgba(255, 215, 0, 0.3);
+            cursor: pointer;
         }
         
         .course-card:hover {
@@ -271,6 +272,138 @@
             color: var(--text-muted);
         }
         
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            overflow: auto;
+        }
+        
+        .modal-content {
+            background-color: var(--card-bg);
+            margin: 5% auto;
+            padding: 30px;
+            border: 2px solid var(--gold);
+            border-radius: 10px;
+            width: 80%;
+            max-width: 800px;
+            position: relative;
+            animation: modalopen 0.5s;
+        }
+        
+        @keyframes modalopen {
+            from {opacity: 0; transform: translateY(-50px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            font-size: 28px;
+            color: var(--gold);
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        
+        .close-btn:hover {
+            color: #ff0000;
+        }
+        
+        .modal-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 215, 0, 0.3);
+        }
+        
+        .modal-header h2 {
+            color: var(--gold);
+            font-size: 2rem;
+            margin: 10px 0;
+        }
+        
+        .modal-header i {
+            font-size: 2.5rem;
+            color: var(--gold);
+        }
+        
+        .course-features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .feature-box {
+            background-color: rgba(255, 215, 0, 0.1);
+            padding: 20px;
+            border-radius: 8px;
+            border-right: 3px solid var(--gold);
+        }
+        
+        .feature-box h4 {
+            color: var(--gold);
+            margin-top: 0;
+            font-size: 1.2rem;
+        }
+        
+        .feature-box ul {
+            padding-right: 20px;
+        }
+        
+        .feature-box li {
+            margin-bottom: 8px;
+        }
+        
+        .course-syllabus {
+            margin: 30px 0;
+        }
+        
+        .course-syllabus h3 {
+            color: var(--gold);
+            border-bottom: 1px solid rgba(255, 215, 0, 0.3);
+            padding-bottom: 10px;
+        }
+        
+        .course-syllabus ol {
+            padding-right: 20px;
+        }
+        
+        .course-syllabus li {
+            margin-bottom: 10px;
+            padding: 8px 0;
+            border-bottom: 1px dashed rgba(255, 215, 0, 0.1);
+        }
+        
+        .register-btn {
+            display: block;
+            width: 200px;
+            margin: 30px auto 0;
+            background-color: var(--gold);
+            color: #000;
+            text-align: center;
+            padding: 12px 0;
+            border-radius: 5px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .register-btn:hover {
+            background-color: #ffcc00;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+        }
+        
         /* Responsive */
         @media (max-width: 768px) {
             .nav-container {
@@ -287,6 +420,15 @@
             
             .about-content {
                 flex-direction: column;
+            }
+            
+            .course-features {
+                grid-template-columns: 1fr;
+            }
+            
+            .modal-content {
+                width: 90%;
+                padding: 20px;
             }
         }
     </style>
@@ -324,49 +466,49 @@
                 <h2>دوره‌های آموزشی</h2>
             </div>
             <div class="courses-grid">
-                <div class="course-card">
+                <div class="course-card" onclick="openModal('icdlModal')">
                     <div class="course-icon">
                         <i class="fas fa-file-certificate"></i>
                     </div>
                     <h3>ICDL</h3>
                     <p>مهارت‌های هفت‌گانه کامپیوتر</p>
                 </div>
-                <div class="course-card">
+                <div class="course-card" onclick="openModal('cppModal')">
                     <div class="course-icon">
                         <i class="fas fa-code"></i>
                     </div>
                     <h3>C++</h3>
                     <p>برنامه‌نویسی سی‌پلاس‌پلاس</p>
                 </div>
-                <div class="course-card">
+                <div class="course-card" onclick="openModal('csharpModal')">
                     <div class="course-icon">
                         <i class="fab fa-microsoft"></i>
                     </div>
                     <h3>C#</h3>
                     <p>برنامه‌نویسی سی‌شارپ</p>
                 </div>
-                <div class="course-card">
+                <div class="course-card" onclick="openModal('htmlModal')">
                     <div class="course-icon">
                         <i class="fab fa-html5"></i>
                     </div>
                     <h3>HTML/CSS</h3>
                     <p>طراحی وب</p>
                 </div>
-                <div class="course-card">
+                <div class="course-card" onclick="openModal('pythonModal')">
                     <div class="course-icon">
                         <i class="fab fa-python"></i>
                     </div>
                     <h3>Python</h3>
                     <p>برنامه‌نویسی پایتون</p>
                 </div>
-                <div class="course-card">
+                <div class="course-card" onclick="openModal('phpModal')">
                     <div class="course-icon">
                         <i class="fab fa-php"></i>
                     </div>
                     <h3>PHP</h3>
                     <p>برنامه‌نویسی وب</p>
                 </div>
-                <div class="course-card">
+                <div class="course-card" onclick="openModal('aspnetModal')">
                     <div class="course-icon">
                         <i class="fas fa-globe"></i>
                     </div>
@@ -385,7 +527,7 @@
             </div>
             <div class="about-content">
                 <div class="about-text">
-                    <p>آموزشگاه کامپیوتر آرمان در زمینه آموزش مهارت‌های کامپیوتری و برنامه‌نویسی، همواره در تلاش بوده تا با بهره‌گیری از اساتید مجرب و به‌روزترین متدهای آموزشی، دانشجویان را برای ورود به بازار کار آماده کند.</p>
+                    <p>آموزشگاه کامپیوتر آرمان با بیش از ۱۰ سال سابقه درخشان در زمینه آموزش مهارت‌های کامپیوتری و برنامه‌نویسی، همواره در تلاش بوده تا با بهره‌گیری از اساتید مجرب و به‌روزترین متدهای آموزشی، دانشجویان را برای ورود به بازار کار آماده کند.</p>
                     <p>ماموریت ما تربیت نیروهای متخصص و کارآمد در حوزه فناوری اطلاعات است. در این راستا، تمامی دوره‌های آموزشی همراه با ارائه مدرک معتبر فنی و حرفه‌ای، جزوات تخصصی و فیلم‌های آموزشی می‌باشد.</p>
                     <p>ما معتقدیم که هر فردی با هر سطح دانشی می‌تواند برنامه‌نویسی را یاد بگیرد و در این مسیر همراه شما هستیم.</p>
                 </div>
@@ -431,5 +573,394 @@
             <p class="footer-text">تمامی حقوق برای آموزشگاه کامپیوتر آرمان محفوظ است. © ۱۴۰۲</p>
         </div>
     </footer>
+    
+    <!-- مودال ICDL -->
+    <div id="icdlModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <div class="modal-header">
+                <i class="fas fa-file-certificate"></i>
+                <h2>دوره جامع ICDL</h2>
+                <p>مهارت‌های هفت‌گانه کامپیوتر</p>
+            </div>
+            
+            <p>دوره ICDL (International Computer Driving License) استانداردی بین‌المللی برای مهارت‌های کامپیوتری است که شامل ۷ مهارت اصلی می‌شود. این دوره برای همه افراد در هر سطحی مناسب است.</p>
+            
+            <div class="course-features">
+                <div class="feature-box">
+                    <h4>مزایای دوره</h4>
+                    <ul>
+                        <li>مدرک بین‌المللی معتبر</li>
+                        <li>یادگیری مهارت‌های ضروری کامپیوتر</li>
+                        <li>افزایش فرصت‌های شغلی</li>
+                        <li>مناسب برای تمام سنین</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-box">
+                    <h4>مهارت‌های آموزش داده شده</h4>
+                    <ul>
+                        <li>مفاهیم پایه فناوری اطلاعات</li>
+                        <li>کار با سیستم عامل ویندوز</li>
+                        <li>اینترنت و ایمیل</li>
+                        <li>واژه‌پردازی (Word)</li>
+                        <li>صفحات گسترده (Excel)</li>
+                        <li>پایگاه داده (Access)</li>
+                        <li>ارائه مطلب (PowerPoint)</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="course-syllabus">
+                <h3>سرفصل‌های دوره:</h3>
+                <ol>
+                    <li><strong>مفاهیم پایه:</strong> سخت‌افزار، نرم‌افزار، شبکه‌ها</li>
+                    <li><strong>ویندوز:</strong> مدیریت فایل‌ها و پوشه‌ها، تنظیمات سیستم</li>
+                    <li><strong>Word:</strong> فرمت‌دهی متون، جدول‌ها، تصاویر</li>
+                    <li><strong>Excel:</strong> فرمول‌نویسی، نمودارها، توابع پیشرفته</li>
+                    <li><strong>Access:</strong> ایجاد پایگاه داده، جداول، کوئری‌ها</li>
+                    <li><strong>PowerPoint:</strong> طراحی اسلایدها، انیمیشن‌ها</li>
+                    <li><strong>اینترنت:</strong> جستجوی پیشرفته، ایمیل، امنیت</li>
+                </ol>
+            </div>
+            
+            <button class="register-btn" onclick="alert('ثبت نام در دوره ICDL انجام شد!')">ثبت نام در دوره</button>
+        </div>
+    </div>
+
+    <!-- مودال ++C -->
+    <div id="cppModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <div class="modal-header">
+                <i class="fas fa-code"></i>
+                <h2>دوره برنامه‌نویسی ++C</h2>
+                <p>پایه‌ای مستحکم برای برنامه‌نویسی حرفه‌ای</p>
+            </div>
+            
+            <p>++C یکی از قدرتمندترین زبان‌های برنامه‌نویسی است که در توسعه نرم‌افزارهای سیستمی، بازی‌های کامپیوتری و برنامه‌های با کارایی بالا استفاده می‌شود.</p>
+            
+            <div class="course-features">
+                <div class="feature-box">
+                    <h4>چرا ++C؟</h4>
+                    <ul>
+                        <li>سرعت اجرای بسیار بالا</li>
+                        <li>کنترل دقیق روی سخت‌افزار</li>
+                        <li>پایه یادگیری سایر زبان‌ها</li>
+                        <li>استفاده در صنعت بازی‌سازی</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-box">
+                    <h4>کاربردها</h4>
+                    <ul>
+                        <li>توسعه سیستم‌عامل‌ها</li>
+                        <li>برنامه‌نویسی سیستمی</li>
+                        <li>بازی‌های کامپیوتری</li>
+                        <li>برنامه‌های Embedded</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="course-syllabus">
+                <h3>سرفصل‌های دوره:</h3>
+                <ol>
+                    <li><strong>مقدمات:</strong> متغیرها، عملگرها، ساختارهای کنترلی</li>
+                    <li><strong>توابع:</strong> تعریف، فراخوانی، بازگشتی</li>
+                    <li><strong>آرایه‌ها و اشاره‌گرها:</strong> مدیریت حافظه</li>
+                    <li><strong>ساختمان داده‌ها:</strong> ساختارها، یونیون‌ها</li>
+                    <li><strong>برنامه‌نویسی شی‌گرا:</strong> کلاس‌ها، وراثت</li>
+                    <li><strong>فایل‌ها:</strong> خواندن و نوشتن داده‌ها</li>
+                    <li><strong>پروژه پایانی:</strong> ساخت برنامه کاربردی</li>
+                </ol>
+            </div>
+            
+            <button class="register-btn" onclick="alert('ثبت نام در دوره ++C انجام شد!')">ثبت نام در دوره</button>
+        </div>
+    </div>
+
+    <!-- مودال #C -->
+    <div id="csharpModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <div class="modal-header">
+                <i class="fab fa-microsoft"></i>
+                <h2>دوره برنامه‌نویسی #C</h2>
+                <p>زبان قدرتمند مایکروسافت برای توسعه اپلیکیشن‌های تجاری</p>
+            </div>
+            
+            <p>#C یکی از مدرن‌ترین و قدرتمندترین زبان‌های برنامه‌نویسی شی‌گرا است که توسط مایکروسافت توسعه یافته و در بستر .NET اجرا می‌شود.</p>
+            
+            <div class="course-features">
+                <div class="feature-box">
+                    <h4>مزایای #C</h4>
+                    <ul>
+                        <li>سینتکس ساده و خوانا</li>
+                        <li>کتابخانه‌های غنی .NET</li>
+                        <li>امنیت نوع داده‌ها</li>
+                        <li>پشتیبانی از چندین پارادایم</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-box">
+                    <h4>کاربردها</h4>
+                    <ul>
+                        <li>توسعه اپلیکیشن‌های ویندوز</li>
+                        <li>برنامه‌نویسی وب با ASP.NET</li>
+                        <li>توسعه بازی با Unity</li>
+                        <li>اپلیکیشن‌های موبایل با Xamarin</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="course-syllabus">
+                <h3>سرفصل‌های دوره:</h3>
+                <ol>
+                    <li><strong>مقدمات #C:</strong> انواع داده، متغیرها، عملگرها</li>
+                    <li><strong>کنترل جریان:</strong> شرط‌ها، حلقه‌ها</li>
+                    <li><strong>توابع و متدها:</strong> پارامترها، بازگشت</li>
+                    <li><strong>برنامه‌نویسی شی‌گرا:</strong> کلاس‌ها، اشیا</li>
+                    <li><strong>مدیریت خطاها:</strong> try-catch-finally</li>
+                    <li><strong>کار با فایل‌ها:</strong> خواندن/نوشتن داده‌ها</li>
+                    <li><strong>پروژه عملی:</strong> ساخت برنامه دسکتاپ</li>
+                </ol>
+            </div>
+            
+            <button class="register-btn" onclick="alert('ثبت نام در دوره #C انجام شد!')">ثبت نام در دوره</button>
+        </div>
+    </div>
+
+    <!-- مودال HTML/CSS -->
+    <div id="htmlModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <div class="modal-header">
+                <i class="fab fa-html5"></i>
+                <h2>دوره طراحی وب با HTML/CSS</h2>
+                <p>پایه‌ای برای تبدیل شدن به یک طراح وب حرفه‌ای</p>
+            </div>
+            
+            <p>HTML و CSS سنگ بنای طراحی وب هستند. در این دوره شما از صفر تا صد طراحی صفحات وب را یاد خواهید گرفت.</p>
+            
+            <div class="course-features">
+                <div class="feature-box">
+                    <h4>چرا HTML/CSS؟</h4>
+                    <ul>
+                        <li>پایه ضروری برای طراحی وب</li>
+                        <li>یادگیری آسان و سریع</li>
+                        <li>امکان ساخت وبسایت بدون برنامه‌نویسی</li>
+                        <li>تقاضای بالا در بازار کار</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-box">
+                    <h4>توانایی‌های کسب شده</h4>
+                    <ul>
+                        <li>ساخت ساختار صفحات وب</li>
+                        <li>طراحی ریسپانسیو</li>
+                        <li>انیمیشن‌های CSS</li>
+                        <li>بهینه‌سازی برای موتورهای جستجو</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="course-syllabus">
+                <h3>سرفصل‌های دوره:</h3>
+                <ol>
+                    <li><strong>مقدمات HTML:</strong> تگ‌ها، ساختار صفحه</li>
+                    <li><strong>فرم‌ها:</strong> ایجاد فرم‌های تعاملی</li>
+                    <li><strong>CSS پایه:</strong> انتخابگرها، خصوصیات</li>
+                    <li><strong>Flexbox و Grid:</strong> چیدمان پیشرفته</li>
+                    <li><strong>رسپانسیو:</strong> Media Queries</li>
+                    <li><strong>انیمیشن‌ها:</strong> ترنزیشن‌ها و کیفریم‌ها</li>
+                    <li><strong>پروژه عملی:</strong> طراحی کامل یک سایت</li>
+                </ol>
+            </div>
+            
+            <button class="register-btn" onclick="alert('ثبت نام در دوره HTML/CSS انجام شد!')">ثبت نام در دوره</button>
+        </div>
+    </div>
+
+    <!-- مودال پایتون -->
+    <div id="pythonModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <div class="modal-header">
+                <i class="fab fa-python"></i>
+                <h2>دوره جامع برنامه‌نویسی پایتون</h2>
+                <p>یادگیری آسان، بازار کار عالی</p>
+            </div>
+            
+            <p>پایتون یکی از محبوب‌ترین زبان‌های برنامه‌نویسی جهان است که برای توسعه وب، هوش مصنوعی، تحلیل داده و اتوماسیون استفاده می‌شود. این زبان با سینتکس ساده و خوانا، گزینه‌ای ایده‌آل برای شروع برنامه‌نویسی است.</p>
+            
+            <div class="course-features">
+                <div class="feature-box">
+                    <h4>چرا پایتون؟</h4>
+                    <ul>
+                        <li>سینتکس ساده و خوانا</li>
+                        <li>کتابخانه‌های قدرتمند و گسترده</li>
+                        <li>جامعه بزرگ توسعه‌دهندگان</li>
+                        <li>چندسکویی (Cross-platform)</li>
+                        <li>مناسب برای پروژه‌های کوچک و بزرگ</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-box">
+                    <h4>کاربردهای پایتون</h4>
+                    <ul>
+                        <li>توسعه وب (Django, Flask)</li>
+                        <li>هوش مصنوعی و یادگیری ماشین</li>
+                        <li>تحلیل داده و علوم داده</li>
+                        <li>اتوماسیون و اسکریپت‌نویسی</li>
+                        <li>توسعه بازی (Pygame)</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="course-syllabus">
+                <h3>سرفصل‌های دوره:</h3>
+                <ol>
+                    <li><strong>مقدمات پایتون:</strong> نصب و راه‌اندازی، متغیرها، انواع داده‌ها، عملگرها</li>
+                    <li><strong>ساختمان داده‌ها:</strong> لیست، تاپل، مجموعه، دیکشنری</li>
+                    <li><strong>کنترل جریان:</strong> شرط‌ها، حلقه‌های تکرار</li>
+                    <li><strong>توابع:</strong> تعریف و فراخوانی، پارامترها، بازگشت</li>
+                    <li><strong>ماژول‌ها و پکیج‌ها:</strong> import، کتابخانه استاندارد</li>
+                    <li><strong>برنامه‌نویسی شی‌گرا:</strong> کلاس‌ها، اشیا، وراثت</li>
+                    <li><strong>کار با فایل‌ها:</strong> خواندن و نوشتن فایل‌های متنی و باینری</li>
+                    <li><strong>مدیریت خطا:</strong> try-except، ایجاد خطاهای سفارشی</li>
+                    <li><strong>پایگاه داده:</strong> کار با SQLite و MySQL</li>
+                    <li><strong>پروژه عملی:</strong> ساخت یک برنامه کاربردی کامل</li>
+                </ol>
+            </div>
+            
+            <button class="register-btn" onclick="alert('ثبت نام در دوره پایتون انجام شد!')">ثبت نام در دوره</button>
+        </div>
+    </div>
+
+    <!-- مودال PHP -->
+    <div id="phpModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <div class="modal-header">
+                <i class="fab fa-php"></i>
+                <h2>دوره برنامه‌نویسی وب با PHP</h2>
+                <p>زبان قدرتمند برای توسعه وبسایت‌های دینامیک</p>
+            </div>
+            
+            <p>PHP یکی از محبوب‌ترین زبان‌های سمت سرور است که در توسعه وبسایت‌های دینامیک مانند سیستم‌های مدیریت محتوا استفاده می‌شود.</p>
+            
+            <div class="course-features">
+                <div class="feature-box">
+                    <h4>مزایای PHP</h4>
+                    <ul>
+                        <li>یادگیری نسبتاً آسان</li>
+                        <li>جامعه توسعه‌دهندگان بزرگ</li>
+                        <li>سازگاری با انواع پایگاه داده</li>
+                        <li>رایگان و متن‌باز</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-box">
+                    <h4>کاربردها</h4>
+                    <ul>
+                        <li>توسعه وبسایت‌های دینامیک</li>
+                        <li>سیستم‌های مدیریت محتوا (WordPress)</li>
+                        <li>فروشگاه‌های اینترنتی</li>
+                        <li>اپلیکیشن‌های تحت وب</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="course-syllabus">
+                <h3>سرفصل‌های دوره:</h3>
+                <ol>
+                    <li><strong>مقدمات PHP:</strong> نصب، متغیرها، عملگرها</li>
+                    <li><strong>کنترل جریان:</strong> شرط‌ها، حلقه‌ها</li>
+                    <li><strong>توابع:</strong> تعریف و فراخوانی</li>
+                    <li><strong>فرم‌ها:</strong> پردازش داده‌های کاربر</li>
+                    <li><strong>کار با پایگاه داده:</strong> MySQL</li>
+                    <li><strong>جلسات و کوکی‌ها:</strong> مدیریت حالت</li>
+                    <li><strong>پروژه عملی:</strong> ساخت سیستم مدیریت محتوا</li>
+                </ol>
+            </div>
+            
+            <button class="register-btn" onclick="alert('ثبت نام در دوره PHP انجام شد!')">ثبت نام در دوره</button>
+        </div>
+    </div>
+
+    <!-- مودال ASP.NET -->
+    <div id="aspnetModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <div class="modal-header">
+                <i class="fas fa-globe"></i>
+                <h2>دوره توسعه وب با ASP.NET</h2>
+                <p>چارچوب قدرتمند مایکروسافت برای توسعه اپلیکیشن‌های وب</p>
+            </div>
+            
+            <p>ASP.NET یک چارچوب توسعه وب قدرتمند است که به شما امکان می‌دهد اپلیکیشن‌های وب مدرن و مقیاس‌پذیر بسازید.</p>
+            
+            <div class="course-features">
+                <div class="feature-box">
+                    <h4>مزایای ASP.NET</h4>
+                    <ul>
+                        <li>عملکرد بالا و امنیت قوی</li>
+                        <li>پشتیبانی از الگوی MVC</li>
+                        <li>توسعه سریع با ابزارهای Visual Studio</li>
+                        <li>پشتیبانی مایکروسافت</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-box">
+                    <h4>کاربردها</h4>
+                    <ul>
+                        <li>اپلیکیشن‌های وب سازمانی</li>
+                        <li>سرویس‌های RESTful API</li>
+                        <li>پورتال‌های اینترنتی</li>
+                        <li>سیستم‌های مدیریت محتوای سفارشی</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="course-syllabus">
+                <h3>سرفصل‌های دوره:</h3>
+                <ol>
+                    <li><strong>مقدمات ASP.NET:</strong> معماری، ابزارها</li>
+                    <li><strong>الگوی MVC:</strong> Model-View-Controller</li>
+                    <li><strong>رابطه‌های داده:</strong> Entity Framework</li>
+                    <li><strong>احراز هویت:</strong> سیستم عضویت و ورود</li>
+                    <li><strong>وب API:</strong> ساخت سرویس‌های RESTful</li>
+                    <li><strong>تست‌نویسی:</strong> Unit Testing</li>
+                    <li><strong>پروژه عملی:</strong> ساخت یک اپلیکیشن وب کامل</li>
+                </ol>
+            </div>
+            
+            <button class="register-btn" onclick="alert('ثبت نام در دوره ASP.NET انجام شد!')">ثبت نام در دوره</button>
+        </div>
+    </div>
+
+    <script>
+        // تابع‌های مدیریت مودال
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+        }
+        
+        function closeModal() {
+            const modals = document.getElementsByClassName('modal');
+            for (let modal of modals) {
+                modal.style.display = 'none';
+            }
+        }
+        
+        // بستن مودال با کلیک خارج از آن
+        window.onclick = function(event) {
+            const modals = document.getElementsByClassName('modal');
+            for (let modal of modals) {
+                if (event.target == modal) {
+                    modal.style.display = 'none';
+                }
+            }
+        }
+    </script>
 </body>
 </html>
